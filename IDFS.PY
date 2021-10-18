@@ -1,20 +1,29 @@
 import stack
-maze = [
-    ["[]","+","$","[]", "*"],
-    ["[]","##","[]","[]","[]"],
+#Caso 1
+# matriz = [
+#     ["[]","+","$","[]", "*"],
+#     ["[]","##","[]","[]","[]"],
+#     ["[]","[]","##","##","[]"],
+#     [00,"[]","[]","+","[]"],
+# ] 
+
+#Caso 2
+matriz = [
+    ["[]","22","11","[]", "*"],
+    ["[]","##",00,"[]","[]"],
     ["[]","[]","##","##","[]"],
-    [00,"[]","[]","+","[]"],
+    ["[]","[]","[]","22","[]"],
 ]   
 
 
 
     
-rowLen = len(maze)
-colLen= len(maze[0])
+rowLen = len(matriz)
+colLen= len(matriz[0])
 EMPTY = '[]'
 BLOCKED = '##'
-FACEWHITE = '+'
-DEER = "$"
+FACEWHITE = '22'
+DEER = "11"
 GOAL = "*"
 
 
@@ -40,9 +49,9 @@ class Stack:
          return self.items.pop()
 
 def INIT():
-    for columna in range(len(maze[0])):
-        for fila in range(len(maze)):
-            if(maze[fila - (columna % 2) * (fila + fila + 1)][columna] == 00):
+    for columna in range(len(matriz[0])):
+        for fila in range(len(matriz)):
+            if(matriz[fila - (columna % 2) * (fila + fila + 1)][columna] == 00):
                 posicion = [fila,columna]
 
     return(posicion)
@@ -63,98 +72,104 @@ def IDFS(limit, currentPosition):
             continue
 
         if(col>0):
-            if(maze[row][col-1] == EMPTY):
+            if(matriz[row][col-1] == EMPTY):
                 currentValue = currentValue
-                maze[row][col-1] = currentValue
+                matriz[row][col-1] = currentValue
                 frontier.push([(row,col-1),currentDepth+1])
-            elif(maze[row][col-1] == FACEWHITE):
+            elif(matriz[row][col-1] == FACEWHITE):
+                print("True - Fila 1 ",matriz[row][col-1])
                 currentValue = currentValue
-                maze[row][col-1] = currentValue
+                matriz[row][col-1] = currentValue
                 frontier.push([(row,col-1),currentDepth+1])
-            elif(maze[row][col-1] == DEER):
+            elif(matriz[row][col-1] == DEER):
+                print("True - Fila 1 ",matriz[row][col-1])
                 currentValue = currentValue
-                maze[row][col-1] = currentValue
+                matriz[row][col-1] = currentValue
                 frontier.push([(row,col-1),currentDepth+1])
-            elif ( maze[row][col-1] == GOAL):
+            elif ( matriz[row][col-1] == GOAL):
                 currentValue = currentValue 
-                maze[row][col] = currentValue
+                matriz[row][col] = currentValue
                 return (currentValue,True)
-            elif ( maze[row][col-1] != BLOCKED):
+            elif ( matriz[row][col-1] != BLOCKED):
                 frontier.push([(row,col-1),currentDepth+1])
             print("---------------------------------------------------------------")
-            print("Limite: ",limit, " Fila: 1 ", " Coordenadas: ", row,",",col)  
-            print(maze)
+            print("Limite: ",limit, " Fila: 1 ", " Coordenadas: ", row,",",col , " Casilla: ",matriz[row][col-1])  
+            print(matriz)
 
         if(row >0 ):
-            if(maze[row-1][col] == EMPTY):
+            if(matriz[row-1][col] == EMPTY):
                 currentValue = currentValue 
-                maze[row-1][col] = currentValue
+                matriz[row-1][col] = currentValue
                 frontier.push([(row-1,col),currentDepth+1])
-            elif(maze[row-1][col] == FACEWHITE):
+            elif(matriz[row-1][col] == FACEWHITE):
+                print("True - Columna 1 ",matriz[row-1][col])
                 currentValue = currentValue 
-                maze[row-1][col] = currentValue
+                matriz[row-1][col] = currentValue
                 frontier.push([(row-1,col),currentDepth+1])
-            elif(maze[row-1][col] == DEER):
+            elif(matriz[row-1][col] == DEER):
+                print("True - Columna 1 ",matriz[row-1][col])
                 currentValue = currentValue 
-                maze[row-1][col] = currentValue
+                matriz[row-1][col] = currentValue
                 frontier.push([(row-1,col),currentDepth+1])                 
-            elif ( maze[row-1][col] == GOAL):
+            elif ( matriz[row-1][col] == GOAL):
                 currentValue = currentValue 
-                maze[row-1][col] = currentValue
+                matriz[row-1][col] = currentValue
                 return (currentValue,True)
-            elif ( maze[row-1][col] != BLOCKED):
+            elif ( matriz[row-1][col] != BLOCKED):
                     frontier.push([(row-1,col),currentDepth+1])
             print("---------------------------------------------------------------")
-            print("Limite: ",limit, " Colum: 1", " Coordenadas: ", row,",",col)  
-            print(maze)
+            print("Limite: ",limit, " Colum: 1", " Coordenadas: ", row,",",col, " Casilla: ", matriz[row-1][col])  
+            print(matriz)
 
 
         if (col < colLen-1):
-            if(maze[row][col+1] == EMPTY):
+            if(matriz[row][col+1] == EMPTY):
                 currentValue = currentValue 
-                maze[row][col+1] = currentValue
+                matriz[row][col+1] = currentValue
                 frontier.push([(row,col+1),currentDepth+1])
-            elif(maze[row][col+1] == FACEWHITE):
+            elif(matriz[row][col+1] == FACEWHITE):
+                print("True - Fila 2 ",matriz[row][col+1])
                 currentValue = currentValue 
-                maze[row][col+1] = currentValue
+                matriz[row][col+1] = currentValue
                 frontier.push([(row,col+1),currentDepth+1])
-            elif(maze[row][col+1] == DEER):
+            elif(matriz[row][col+1] == DEER):
+                print("True - Fila 2 ",matriz[row][col+1])
                 currentValue = currentValue 
-                maze[row][col+1] = currentValue
+                matriz[row][col+1] = currentValue
                 frontier.push([(row,col+1),currentDepth+1])
-            elif ( maze[row][col+1] == GOAL):
+            elif ( matriz[row][col+1] == GOAL):
                 currentValue = currentValue 
-                maze[row][col+1] = currentValue
+                matriz[row][col+1] = currentValue
                 return (currentValue,True)
-            elif ( maze[row][col+1] != BLOCKED):
+            elif ( matriz[row][col+1] != BLOCKED):
                 frontier.push([(row,col+1),currentDepth+1])
 
             print("---------------------------------------------------------------")
-            print("Limite: ",limit, " Fila: 2", " Coordenadas: ", row,",",col)  
-            print(maze)
+            print("Limite: ",limit, " Fila: 2", " Coordenadas: ", row,",",col, " Casilla: ", matriz[row][col+1])  
+            print(matriz)
 
         if(row<rowLen-1):
-            if(maze[row+1][col] == EMPTY):
+            if(matriz[row+1][col] == EMPTY):
                 currentValue = currentValue 
-                maze[row+1][col] = currentValue
+                matriz[row+1][col] = currentValue
                 frontier.push([(row+1,col),currentDepth+1])
-            elif(maze[row+1][col] == FACEWHITE):
+            elif(matriz[row+1][col] == FACEWHITE):
                 currentValue = currentValue 
-                maze[row+1][col] = currentValue
+                matriz[row+1][col] = currentValue
                 frontier.push([(row+1,col),currentDepth+1])
-            elif(maze[row+1][col] == DEER):
+            elif(matriz[row+1][col] == DEER):
                 currentValue = currentValue 
-                maze[row+1][col] = currentValue
+                matriz[row+1][col] = currentValue
                 frontier.push([(row+1,col),currentDepth+1])
-            elif (maze[row+1][col] == GOAL):
+            elif (matriz[row+1][col] == GOAL):
                 currentValue = currentValue 
-                maze[row+1][col] = currentValue
+                matriz[row+1][col] = currentValue
                 return (currentValue,True)
-            elif ( maze[row+1][col] != BLOCKED):
+            elif ( matriz[row+1][col] != BLOCKED):
                 frontier.push([(row+1,col),currentDepth+1])
             print("---------------------------------------------------------------")
-            print("Limite: ",limit, " Colum: 2", " Coordenadas: ", row,",",col)  
-            print(maze)
+            print("Limite: ",limit, " Colum: 2", " Coordenadas: ", row,",",col, " Casilla: ", matriz[row+1][col])  
+            print(matriz)
        
     return (currentPosition,False) 
 
@@ -170,7 +185,7 @@ def main():
         (currentPosition,ret) = IDFS(limit,currentPosition)
         #print("Elementos de current: ", currentPosition, " Ret: ", ret, " Limit: " , limit)
         if(ret):
-            for items in maze:
+            for items in matriz:
                 rowString =''
                 for item in items:
                       rowString = rowString + str(item).zfill(2) + ' ' 

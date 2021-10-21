@@ -1,29 +1,33 @@
 import stack
-#Caso 1
-# matriz = [
-#     ["[]","+","$","[]", "*"],
-#     ["[]","##","[]","[]","[]"],
-#     ["[]","[]","##","##","[]"],
-#     [00,"[]","[]","+","[]"],
-# ] 
-
-#Caso 2
+import pygame
+import sys
+from pygame.draw import rect
+from pygame.locals import *
+# Caso 1
 matriz = [
-    ["[]","22","11","[]", "*"],
-    ["[]","##",00,"[]","[]"],
-    ["[]","[]","##","##","[]"],
-    ["[]","[]","[]","22","[]"],
-]   
+    ["3","2","1","3","*"],
+    ["3","#","3","3","3"],
+    ["3","3","#","#","3"],
+    [0,"3","3","2","3"],
+] 
 
+# # #Caso 2
+# matriz = [
+#     ["3","2","1","3","*"],
+#     ["3","#",0,"3","3"],
+#     ["3","3","#","#","3"],
+#     ["3","3","3","2","3"],
+# ]   
 
+print(f"Matriz Inicial Iterativa : {matriz}")
 
     
 rowLen = len(matriz)
 colLen= len(matriz[0])
-EMPTY = '[]'
-BLOCKED = '##'
-FACEWHITE = '22'
-DEER = "11"
+EMPTY = '3'
+BLOCKED = '#'
+FACEWHITE = '2'
+DEER = "1"
 GOAL = "*"
 
 
@@ -77,12 +81,12 @@ def IDFS(limit, currentPosition):
                 matriz[row][col-1] = currentValue
                 frontier.push([(row,col-1),currentDepth+1])
             elif(matriz[row][col-1] == FACEWHITE):
-                print("True - Fila 1 ",matriz[row][col-1])
+                # print("True - Fila 1 ",matriz[row][col-1])
                 currentValue = currentValue
                 matriz[row][col-1] = currentValue
                 frontier.push([(row,col-1),currentDepth+1])
             elif(matriz[row][col-1] == DEER):
-                print("True - Fila 1 ",matriz[row][col-1])
+                # print("True - Fila 1 ",matriz[row][col-1])
                 currentValue = currentValue
                 matriz[row][col-1] = currentValue
                 frontier.push([(row,col-1),currentDepth+1])
@@ -92,9 +96,9 @@ def IDFS(limit, currentPosition):
                 return (currentValue,True)
             elif ( matriz[row][col-1] != BLOCKED):
                 frontier.push([(row,col-1),currentDepth+1])
-            print("---------------------------------------------------------------")
-            print("Limite: ",limit, " Fila: 1 ", " Coordenadas: ", row,",",col , " Casilla: ",matriz[row][col-1])  
-            print(matriz)
+            # print("---------------------------------------------------------------")
+            # print("Limite: ",limit, " Fila: 1 ", " Coordenadas: ", row,",",col , " Casilla: ",matriz[row][col-1])  
+            # print(matriz)
 
         if(row >0 ):
             if(matriz[row-1][col] == EMPTY):
@@ -102,12 +106,12 @@ def IDFS(limit, currentPosition):
                 matriz[row-1][col] = currentValue
                 frontier.push([(row-1,col),currentDepth+1])
             elif(matriz[row-1][col] == FACEWHITE):
-                print("True - Columna 1 ",matriz[row-1][col])
+                #print("True - Columna 1 ",matriz[row-1][col])
                 currentValue = currentValue 
                 matriz[row-1][col] = currentValue
                 frontier.push([(row-1,col),currentDepth+1])
             elif(matriz[row-1][col] == DEER):
-                print("True - Columna 1 ",matriz[row-1][col])
+                # print("True - Columna 1 ",matriz[row-1][col])
                 currentValue = currentValue 
                 matriz[row-1][col] = currentValue
                 frontier.push([(row-1,col),currentDepth+1])                 
@@ -117,9 +121,9 @@ def IDFS(limit, currentPosition):
                 return (currentValue,True)
             elif ( matriz[row-1][col] != BLOCKED):
                     frontier.push([(row-1,col),currentDepth+1])
-            print("---------------------------------------------------------------")
-            print("Limite: ",limit, " Colum: 1", " Coordenadas: ", row,",",col, " Casilla: ", matriz[row-1][col])  
-            print(matriz)
+            # print("---------------------------------------------------------------")
+            # print("Limite: ",limit, " Colum: 1", " Coordenadas: ", row,",",col, " Casilla: ", matriz[row-1][col])  
+            # print(matriz)
 
 
         if (col < colLen-1):
@@ -128,12 +132,12 @@ def IDFS(limit, currentPosition):
                 matriz[row][col+1] = currentValue
                 frontier.push([(row,col+1),currentDepth+1])
             elif(matriz[row][col+1] == FACEWHITE):
-                print("True - Fila 2 ",matriz[row][col+1])
+                # print("True - Fila 2 ",matriz[row][col+1])
                 currentValue = currentValue 
                 matriz[row][col+1] = currentValue
                 frontier.push([(row,col+1),currentDepth+1])
             elif(matriz[row][col+1] == DEER):
-                print("True - Fila 2 ",matriz[row][col+1])
+                # print("True - Fila 2 ",matriz[row][col+1])
                 currentValue = currentValue 
                 matriz[row][col+1] = currentValue
                 frontier.push([(row,col+1),currentDepth+1])
@@ -144,9 +148,9 @@ def IDFS(limit, currentPosition):
             elif ( matriz[row][col+1] != BLOCKED):
                 frontier.push([(row,col+1),currentDepth+1])
 
-            print("---------------------------------------------------------------")
-            print("Limite: ",limit, " Fila: 2", " Coordenadas: ", row,",",col, " Casilla: ", matriz[row][col+1])  
-            print(matriz)
+            # print("---------------------------------------------------------------")
+            # print("Limite: ",limit, " Fila: 2", " Coordenadas: ", row,",",col, " Casilla: ", matriz[row][col+1])  
+            # print(matriz)
 
         if(row<rowLen-1):
             if(matriz[row+1][col] == EMPTY):
@@ -167,9 +171,9 @@ def IDFS(limit, currentPosition):
                 return (currentValue,True)
             elif ( matriz[row+1][col] != BLOCKED):
                 frontier.push([(row+1,col),currentDepth+1])
-            print("---------------------------------------------------------------")
-            print("Limite: ",limit, " Colum: 2", " Coordenadas: ", row,",",col, " Casilla: ", matriz[row+1][col])  
-            print(matriz)
+            # print("---------------------------------------------------------------")
+            # print("Limite: ",limit, " Colum: 2", " Coordenadas: ", row,",",col, " Casilla: ", matriz[row+1][col])  
+            # print(matriz)
        
     return (currentPosition,False) 
 
@@ -181,6 +185,7 @@ def main():
     startrow = posicion[0]
     startcol = posicion[1]
     currentPosition =0  
+    lista_terminal=list()
     for limit in range(1,(rowLen*colLen)):
         (currentPosition,ret) = IDFS(limit,currentPosition)
         #print("Elementos de current: ", currentPosition, " Ret: ", ret, " Limit: " , limit)
@@ -188,19 +193,14 @@ def main():
             for items in matriz:
                 rowString =''
                 for item in items:
-                      rowString = rowString + str(item).zfill(2) + ' ' 
+                      rowString = rowString + str(item) 
+                lista_terminal.append(rowString)
+                # print(rowString)
 
-                print(rowString)
+            return lista_terminal
 
-            return
-
-        
+   
         
 if __name__ == "__main__":
     main()
    
-        
-
-
-   
-        

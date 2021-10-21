@@ -3,23 +3,23 @@ import queue
 ##El módulo queue implementa colas multi-productor y multi-consumidor.
 #Es especialmente útil en la programación en hilo cuando la información debe intercambiarse de forma segura entre varios subprocesos. 
 matriz = [
-    ["[]","22","11","[]","*" ],
-    ["[]","##","[]","[]","[]"],
-    ["[]","[]","##","##","[]"],
-    [00,"[]","[]","22", "[]" ],
+    ["3","2","1","3","*" ],
+    ["3","#","0","3","3"],
+    ["3","3","#","#","3"],
+    ["3","3","3","2", "3" ],
 ]   
 
 
     #En la matrix de arriba se puede visualizar como ejemplo el mapa utilizado en el proyecto en donde
     #(3,0) es la posicion inicial, los numerales son los obstaculos  y la parte superior derecha es la meta
-
+print(f"Matriz Inicial Amplitud : {matriz}")
     
 rowLen = len(matriz)
 colLen= len(matriz[0])
-EMPTY = '[]'
+EMPTY = '3'
 GOAL = '*'
-FACEWHITE = '22'
-DEER = "11"
+FACEWHITE = '2'
+DEER = "1"
 frontier = queue.Queue()
 
 def findStartPos(matriz):
@@ -117,14 +117,16 @@ def BFS():
 
 
 def main():
+    lista_bfs=list()
     BFS()
-    for items in matriz: 
-                rowString =''
-                for item in items:
-                      rowString = rowString + str(item).zfill(2) + ' ' 
+    for items in matriz:
+        rowString =''
+        for item in items:
+                rowString = rowString + str(item)
 
-                print(rowString)
-        
+        # print(rowString)
+        lista_bfs.append(rowString)
+    return lista_bfs
+    
 if __name__ == "__main__":
     main()    
-        

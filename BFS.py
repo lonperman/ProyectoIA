@@ -1,34 +1,37 @@
 import queue
 
-maze = [
-        ['[]','[]','[]','[]','[]','[]','[]','[]','[]','[]','[]'],
-        ['[]','[]','[]','[]','[]','[]','[]','[]','[]','[]','[]'],
-        ['[]','[]','[]','[]','##','##','##','##','[]','[]','[]'],
-        ['[]','[]','*','[]','##','[]','[]','##','[]','[]','[]'],
-        ['[]','[]','[]','##','##',00,'[]','##','[]','[]','[]'],
-        ['[]','[]','[]','[]','[]','[]','##','##','[]','[]','[]'],
-        ['[]','[]','[]','[]','[]','[]','[]','[]','[]','[]','[]'],
-        ['[]','[]','[]','[]','[]','[]','[]','[]','[]','[]','[]']
-    ]
+##El módulo queue implementa colas multi-productor y multi-consumidor.
+#Es especialmente útil en la programación en hilo cuando la información debe intercambiarse de forma segura entre varios subprocesos. 
+matriz = [
+    ["[]","[]","[]","[]","*" ],
+    ["[]","##","[]","[]","[]"],
+    ["[]","[]","##","##","[]"],
+    [00,"[]","[]","[]", "[]" ],
+]   
+
+
+    #En la matrix de arriba se puede visualizar como ejemplo el mapa utilizado en el proyecto en donde
+    #(3,0) es la posicion inicial, los numerales son los obstaculos  y la parte superior derecha es la meta
 
     
-rowLen = len(maze)
-colLen= len(maze[0])
+rowLen = len(matriz)
+colLen= len(matriz[0])
 EMPTY = '[]'
 GOAL = '*'
 frontier = queue.Queue()
 
-def findStartPos(maze):
-    for row  in range(0,len(maze)):
-        for col in range(0,len(maze[0])):
-            if maze[row][col]  is 0:
+def findStartPos(matriz):
+    for row  in range(0,len(matriz)):
+        for col in range(0,len(matriz[0])):
+            if matriz[row][col]  == 0: 
+                #print("Posicion: ",row," , ",col) 
                 return (row,col)
     
     return (0,0) 
 
 def BFS():
     currentValue = 0
-    (startrow,startcol) = findStartPos(maze)
+    (startrow,startcol) = findStartPos(matriz)
     frontier.put([startrow,startcol])
     while frontier.not_empty:
         
@@ -37,53 +40,53 @@ def BFS():
         col = currentPosition[1]
         
         if(col>0):
-            if(maze[row][col-1] == EMPTY):
-                currentValue = currentValue + 1
-                maze[row][col-1] = currentValue
+            if(matriz[row][col-1] == EMPTY):
+                currentValue = currentValue 
+                matriz[row][col-1] = currentValue
                 frontier.put([row,col-1])
             
-            elif ( maze[row][col-1] == GOAL):
-                currentValue = currentValue + 1
-                maze[row][col] = currentValue
+            elif ( matriz[row][col-1] == GOAL):
+                currentValue = currentValue 
+                matriz[row][col] = currentValue
                 return currentValue
 
         if(row >0 ):
-            if(maze[row-1][col] == EMPTY):
-                currentValue = currentValue + 1
-                maze[row-1][col] = currentValue
+            if(matriz[row-1][col] == EMPTY):
+                currentValue = currentValue 
+                matriz[row-1][col] = currentValue
                 frontier.put([row-1,col])
                 
-            elif ( maze[row-1][col] == GOAL):
-                currentValue = currentValue + 1
-                maze[row-1][col] = currentValue
+            elif ( matriz[row-1][col] == GOAL):
+                currentValue = currentValue 
+                matriz[row-1][col] = currentValue
                 return currentValue
 
         if (col < colLen-1):
-            if(maze[row][col+1] == EMPTY):
-                currentValue = currentValue + 1
-                maze[row][col+1] = currentValue
+            if(matriz[row][col+1] == EMPTY):
+                currentValue = currentValue 
+                matriz[row][col+1] = currentValue
                 frontier.put([row,col+1])
                 
-            elif ( maze[row][col+1] == GOAL):
-                currentValue = currentValue + 1
-                maze[row][col+1] = currentValue
+            elif ( matriz[row][col+1] == GOAL):
+                currentValue = currentValue 
+                matriz[row][col+1] = currentValue
                 return currentValue
 
         if(row<rowLen-1):
-            if(maze[row+1][col] == EMPTY):
-                currentValue = currentValue + 1
-                maze[row+1][col] = currentValue
+            if(matriz[row+1][col] == EMPTY):
+                currentValue = currentValue 
+                matriz[row+1][col] = currentValue
                 frontier.put([row+1,col])
                 
-            elif (maze[row+1][col] == GOAL):
-                currentValue = currentValue + 1
-                maze[row+1][col] = currentValue
+            elif (matriz[row+1][col] == GOAL):
+                currentValue = currentValue 
+                matriz[row+1][col] = currentValue
                 return currentValue
 
 
 def main():
     BFS()
-    for items in maze:
+    for items in matriz: 
                 rowString =''
                 for item in items:
                       rowString = rowString + str(item).zfill(2) + ' ' 

@@ -3,10 +3,10 @@ import queue
 ##El módulo queue implementa colas multi-productor y multi-consumidor.
 #Es especialmente útil en la programación en hilo cuando la información debe intercambiarse de forma segura entre varios subprocesos. 
 matriz = [
-    ["[]","[]","[]","[]","*" ],
+    ["[]","22","11","[]","*" ],
     ["[]","##","[]","[]","[]"],
     ["[]","[]","##","##","[]"],
-    [00,"[]","[]","[]", "[]" ],
+    [00,"[]","[]","22", "[]" ],
 ]   
 
 
@@ -18,6 +18,8 @@ rowLen = len(matriz)
 colLen= len(matriz[0])
 EMPTY = '[]'
 GOAL = '*'
+FACEWHITE = '22'
+DEER = "11"
 frontier = queue.Queue()
 
 def findStartPos(matriz):
@@ -44,7 +46,14 @@ def BFS():
                 currentValue = currentValue 
                 matriz[row][col-1] = currentValue
                 frontier.put([row,col-1])
-            
+            elif(matriz[row][col-1] == FACEWHITE):
+                currentValue = currentValue
+                matriz[row][col-1] = currentValue
+                frontier.put([row,col-1])
+            elif(matriz[row][col-1] == DEER):
+                currentValue = currentValue
+                matriz[row][col-1] = currentValue
+                frontier.put([row,col-1])
             elif ( matriz[row][col-1] == GOAL):
                 currentValue = currentValue 
                 matriz[row][col] = currentValue
@@ -55,7 +64,14 @@ def BFS():
                 currentValue = currentValue 
                 matriz[row-1][col] = currentValue
                 frontier.put([row-1,col])
-                
+            elif(matriz[row-1][col] == FACEWHITE):
+                currentValue = currentValue 
+                matriz[row-1][col] = currentValue
+                frontier.put([row-1,col])
+            elif(matriz[row-1][col] == DEER):
+                currentValue = currentValue 
+                matriz[row-1][col] = currentValue
+                frontier.put([row-1,col])
             elif ( matriz[row-1][col] == GOAL):
                 currentValue = currentValue 
                 matriz[row-1][col] = currentValue
@@ -63,6 +79,14 @@ def BFS():
 
         if (col < colLen-1):
             if(matriz[row][col+1] == EMPTY):
+                currentValue = currentValue 
+                matriz[row][col+1] = currentValue
+                frontier.put([row,col+1])
+            elif(matriz[row][col+1] == FACEWHITE):
+                currentValue = currentValue 
+                matriz[row][col+1] = currentValue
+                frontier.put([row,col+1])
+            elif(matriz[row][col+1] == DEER):
                 currentValue = currentValue 
                 matriz[row][col+1] = currentValue
                 frontier.put([row,col+1])
@@ -74,6 +98,14 @@ def BFS():
 
         if(row<rowLen-1):
             if(matriz[row+1][col] == EMPTY):
+                currentValue = currentValue 
+                matriz[row+1][col] = currentValue
+                frontier.put([row+1,col])
+            elif(matriz[row+1][col] == FACEWHITE):
+                currentValue = currentValue 
+                matriz[row+1][col] = currentValue
+                frontier.put([row+1,col])
+            elif(matriz[row+1][col] == DEER):
                 currentValue = currentValue 
                 matriz[row+1][col] = currentValue
                 frontier.put([row+1,col])
